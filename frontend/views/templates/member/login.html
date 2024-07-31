@@ -1,10 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>로그인</title>
+    <link rel="stylesheet" href="/static/css/nav.css">
 </head>
 <body>
+    <div id="wrap">
+        <header><h1 id="logo">로그인</h1></header>    `
+        <nav><ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/member/join">회원가입</a></li>
+                <li><a href="/member/login">로그인</a></li>
+                <li><a href="/board/list">게시판</a></li>
+                <li><a href="/member/myinfo">회원정보</a></li>
+            </ul>
+        </nav>
 
+        <main>
+            <form name="loginfrm" method="post">
+                <div><label for="userid">아이디</label>
+                    <input type="text" name="userid" id="userid" required></div>
+                <div><label for="passwd">비밀번호</label>
+                    <input type="password" name="passwd" id="passwd" required></div>
+                <div><button type="submit" id="loginbtn">로그인</button></div>
+            </form>
+        </main>
+        <footer>
+            <hr>
+            <p>copyright &copy; 2024. dangdangpractice. all right reserved.</p>
+        </footer>
+
+    </div>
 </body>
 </html>
