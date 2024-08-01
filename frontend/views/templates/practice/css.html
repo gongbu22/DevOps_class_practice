@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>CSS 연습</title>
+    <style>
+        header { width: 100%; border: 1px solid red; margin: 0 auto }
+        #h1 { width: 30%; height: 100px; background: hotpink; float:left; text-align: center  }
+        #topright, #bottomleft { width: 70%; height: 50px; }
+        #topright { background: aqua; float:right }
+        #bottomleft { background: greenyellow; float:right }
+
+        #topright ul { list-style-type: none; text-align: right }
+        #topright ul li { display: inline; margin-right: 10% }
+
+        /* ------------ */
+        #out { width: 150px; height: 150px; background: palevioletred; margin-top: 100px}
+        #in { width: 50px; height: 70px;
+            background: mediumpurple;
+            position: relative; top: 50px; left: 20px }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div id="h1"><h2>CSS 연습</h2></div>
+        <div id="topright">
+            <ul>
+                <li>Info</li>
+                <li>Baords</li>
+                <li>Cart</li>
+                <li>MyPage</li>
+            </ul>
+        </div>
+        <div id="bottomleft">bottom left</div>
+    </header>
+
+    <main>
+        <div id="out">
+            <div id="in">hello</div>
+        </div>
+
+
+
+    </main>
+
+
+
+
+</body>
+</html>
