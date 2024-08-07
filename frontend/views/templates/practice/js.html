@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>JS</title>
+</head>
+<body>
+  <h1>JS</h1>
+  <hr>
+  <h2>loop</h2>
+  <script>
+    // 1 ~ 500 총합을 계산
+    let sum = 0;
+    for ( let i = 1; i <= 500; ++i ){
+      sum += i;
+    }
+    document.write(`총합은 ${sum} 입니다. <br>`);
+
+    // for-in
+    const score = {
+      kor: 87,
+      eng: 66,
+      mat: 98
+    };
+    for (let key in score) {
+      document.write(`${key} : ${score[key]} <br>`);
+    }
+
+    const fruits = ['apple', 'banana', 'lemon', 'grape'];
+
+    for (let fruit in fruits) {
+      document.write(`과일${fruit}: ${fruits[fruit]}`);
+    }
+    document.write('<br>');
+
+  // for-of
+    const menus = ['떡볶이', '짜장면', '국밥', '햄버거', '마라탕'];
+    const say = 'hello, nice meet you :)';
+
+    // 명령형 코드 - 지정한 자리에 들어갈거야
+    for (let i=0; i<menus.length; i++){
+      document.write(menus[i], '<br>');
+    }
+
+    // 선언형 코드 - 컴퓨터 너가 알아서 자리 정해줘~
+    for (let menu of menus) {
+      document.write(menu, '<br>');
+    }
+
+    for (let char of say) {
+      document.write(char, ' ');
+    }
+
+    document.write('<br>');
+
+  </script>
+
+  <h2>array</h2>
+  <script>
+    // 자리 갯수 지정
+    // let animals = ['elephant', 'rabbit', 'dog', 'cat', 'bird', 'graff'];
+    let animals = new Array(10);
+    // animals.push('elephant');
+    // animals.push('rabbit');
+    // animals.push('dog');
+    // animals.push('cat');
+    // animals.push('bird');
+    // animals.push('graff');
+    animals[0] = 'elephant';
+    animals[1] = 'rabbit';
+    animals[2] = 'dog';
+    animals[3] = 'cat';
+    animals[4] = 'bird';
+    animals[5] = 'graff';
+
+    for (let animal of animals) {
+      document.write(animal, ' ');
+    }
+
+    document.write('<br>');
+
+    // callback
+    animals.forEach(animal => document.write(animal, ' '));
+
+  </script>
+
+  <h2>while</h2>
+  <script>
+    // 1 ~ 10 까지 정수 출력
+    let n = 1;
+    while(n <= 10){
+      document.write(n, ' ');
+      n++;
+    }
+
+    document.write('<br>');
+
+    // 1 ~ 20까지 숫자 중 3의 배수이거나 5의 배수인 숫자를 제외한 숫자들의 합 구하기
+    let num = 0;
+    sum = 0;
+
+    while(num < 20){
+      num++;
+      if (num % 3 == 0 || num % 5 == 0) {
+        continue;
+      }else {
+        sum += num;
+      }
+    }
+    document.write(sum, '<br>');
+
+    // 1 ~ 10 숫자 맞추기
+    let great = 7;
+    let cnt = 0;
+    while(true) {
+      let inputnum = Number(prompt('숫자는? (1 ~ 10 중에서 입력하세요.)'));
+      cnt++;
+      if (inputnum == great) break;
+    }
+    document.write(`축하합니다. 정답은 ${great} 입니다!! ${cnt}회만에 맞추셨습니다.`);
+
+  </script>
+
+  <h2>function</h2>
+  <script>
+    // 익명함수
+    let secret = function (msg) {
+      return `쉿! 비밀이야!! ${msg}`;
+    };
+    document.write(secret('메롱'), '<br>');
+    document.write(secret('히히'), '<br>');
+
+    // 화살표함수
+    let arrow = (msg) => { return msg};
+    document.write(arrow('반가워 :)'));
+
+    // 호이스팅
+    console.log(a); // a 선언만 됨, 초기화는 안됨 undefined
+    var a = 5;
+    console.log(a); // 5
+
+    console.log(myFunc())
+    function myFunc() {
+      return 'test :)';
+    }
+
+    // let은 호이스팅 안됨
+    console.log(hoiFuc())
+    let hoiFuc = () => 'lethoi';
+
+  </script>
+
+
+
+  <p></p>
+</body>
+</html>
