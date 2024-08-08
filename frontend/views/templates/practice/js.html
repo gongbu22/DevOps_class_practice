@@ -112,12 +112,12 @@
     // 1 ~ 10 숫자 맞추기
     let great = 7;
     let cnt = 0;
-    while(true) {
-      let inputnum = Number(prompt('숫자는? (1 ~ 10 중에서 입력하세요.)'));
-      cnt++;
-      if (inputnum == great) break;
-    }
-    document.write(`축하합니다. 정답은 ${great} 입니다!! ${cnt}회만에 맞추셨습니다.`);
+    // while(true) {
+    //   let inputnum = Number(prompt('숫자는? (1 ~ 10 중에서 입력하세요.)'));
+    //   cnt++;
+    //   if (inputnum == great) break;
+    // }
+    // document.write(`축하합니다. 정답은 ${great} 입니다!! ${cnt}회만에 맞추셨습니다.`);
 
   </script>
 
@@ -145,12 +145,182 @@
     }
 
     // let은 호이스팅 안됨
-    console.log(hoiFuc())
+    // console.log(hoiFuc())
     let hoiFuc = () => 'lethoi';
+
+    document.write('<br>');
+    // split, slice
+    // 파일명과 확장자 분리하기
+    let file = 'example.png';
+    let filesplit = file.split('.');
+    let filename = filesplit[0];
+    let fext = filesplit[1];
+
+    document.write(`${file}의 파일명 : ${filename} <br>`);
+    document.write(`${file}의 확장자 : ${fext} <br>`);
+
+    document.write('<br>');
+
+    let filename2 = file.slice(0, file.lastIndexOf('.'));
+    let fext2 = file.slice(file.lastIndexOf('.')+1);
+
+    document.write(`${file}의 파일명 : ${filename2} <br>`);
+    document.write(`${file}의 확장자 : ${fext2} <br>`);
 
   </script>
 
+  <h2>except</h2>
+  <script>
+    // 예외처리
+    try{
+      document.write(`${abc}`, '<br>');
+    } catch(e) {
+      document.write(`예외 발생!`);
+      document.write(e.name, '<br>'); // 오류 종류
+      document.write(e.message, '<br>'); // 오류 메시지
+      document.write(e.stack, '<br>'); // 오류 추적사항
+    }
 
+    // ReferenceError 변수 선언 관련 오류
+    try{
+      document.write(`${test}`)
+    } catch(e) {
+      if (e instanceof ReferenceError) {
+        document.write(`변수 선언 관련 오류입니다. 변수가 선언되지 않았습니다. <br>`);
+      }
+    }
+
+    // RangeError 볌위 관련 오류
+    try {
+      let a = [1, 2, 3];
+      a.length = -1;
+    } catch(e) {
+      if (e instanceof RangeError) {
+        document.write(`범위 관련 오류 : 범위가 아닙니다. <br>`);
+      }
+    }
+
+    // SyntaxError 문법 관련 오류
+    try {
+      eval("function test() {return 0; ");
+    } catch(e) {
+      if (e instanceof SyntaxError) {
+        document.write(`문법 관련 오류 입니다. <br>`);
+      }
+    }
+
+    // TypeError 변수나 객체의 자료형과 관련된 오류
+    let str = null;
+    try {
+      console.log(str.toString());
+    } catch(e) {
+      if (e instanceof TypeError) {
+        document.write(`변수나 객체의 자료형과 관련된 오류입니다. <br>`);
+      }
+    }
+  </script>
+
+  <h2>브라우저 객체 bom</h2>
+  <div>
+    <button type="button" onclick="makeWin()">새창띄우기</button>
+    <button type="button" onclick="movWin()">창 이동시키기</button>
+    <button type="button" onclick="rszWin()">창 크기 바꾸기</button>
+    <button type="button" onclick="closeWin()">띄운 창 닫기</button>
+  </div>
+  <script>
+    // 문서 열기/닫기
+    let mywin = null;
+
+    // let makeWin = () => {
+    //   mywin = window.open('http://google.co.kr');
+    // };
+
+    let closeWin = () => {
+      mywin.close();
+    };
+
+    // 창 조작
+    let makeWin = () => {
+      mywin = window.open('about:blank',
+        null, 'popup width=300, height=300');
+    };
+
+    let movWin = () => {
+      mywin.moveTo(550, 550);
+    };
+
+    let rszWin = () => {
+      mywin.resizeTo(500, 200);
+    }
+
+    // screen - 사용자 디스플레이 관련
+    document.write(screen.width, '/', screen.height, '<br>');
+    document.write(screen.availWidth, '/', screen.availHeight, '<br>');
+
+  </script>
+
+  <h2>location</h2>
+  <script>
+    let url = location.href;
+    document.write(url, '<br>');
+    document.write(location.hostname, '<br>');
+    document.write(location.pathname, '<br>');
+    document.write(location.search, '<br>');
+  </script>
+
+  <h2>navigator</h2>
+  <script>
+    document.write(navigator.appName);
+    document.write(navigator.appCodeName);
+    document.write(navigator.appVersion);
+    document.write(navigator.userAgent);
+    document.write(navigator.platform);
+  </script>
+
+  <h2>문서 객체 모델 dom </h2>
+  <p id = "one" class="first">자세히 보아야 예쁘다</p>
+  <p id ="two" class="first">오래 보아야 사랑스럽다</p>
+  <p id = "three" class="third">너도 그렇다.</p>
+  <script>
+    const one = document.getElementById('one');
+    one.style.color='orange';
+
+    const two = document.getElementById('two');
+    two.style.background = 'bold';
+    two.style.textDecoration = 'underline';
+
+    const three = document.getElementById('three');
+    three.style.background = 'navy';
+    three.style.color = 'yellow';
+  </script>
+
+  <h2>테이블</h2>
+  <div id="div"></div>
+  <script>
+    let div = document.querySelector('#div');
+
+    let table = document.createElement('table');
+    table.setAttribute('border', '1');
+    table.setAttribute('width', '500px');
+    table.setAttribute('cellpadding', '7');
+
+    let tr = document.createElement('tr');
+    let th = document.createElement('th');
+    let txt = document.createTextNode('th');
+    th.appendChild(txt);
+    tr.appendChild(th);
+    table.appendChild(tr);
+
+    tr = document.createElement('tr');
+    let td = document.createElement('td');
+    txt = document.createTextNode('td');
+    td.appendChild(txt);
+    tr.appendChild(td);
+
+    table.appendChild(tr);
+    div.appendChild(table);
+
+  </script>
 
   <p></p>
 </body>
