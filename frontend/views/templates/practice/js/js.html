@@ -317,10 +317,121 @@
     td.appendChild(txt);
     tr.appendChild(td);
 
-    table.appendChild(tr);
+    table.appendChild(tr); 
     div.appendChild(table);
 
   </script>
+
+  <h2>DOM</h2>
+  <div>
+    <p id="four" class="firstclass">복습은 즐거워~</p>
+    <p id="five" class="firstclass">너무나도 즐겁지~</p>
+    <p id="six" class="thirdclass">더더욱 성장할거야!!</p>
+  </div>
+
+  <script>
+    const four = document.getElementById('four');
+    four.style.color = 'purple';
+    four.style.fontWeight = 'bold';
+
+    const firstclass = document.getElementsByClassName('firstclass');
+    firstclass[1].style.background = 'yellow';
+
+    const six = document.querySelector('#six');
+    six.style.color = 'gold';
+    six.style.textDecoration = 'underline';
+  </script>
+
+  <h2>이벤트</h2>
+  <div>
+    <button type="button" onclick="sayhello()">이벤트1</button>
+    <button type="button" id="btn2">이벤트2</button>
+    <button type="button" id="btn3">이벤트3</button>
+  </div>
+
+  <script>
+    let sayhello = () => { alert('Hello, Nice meet you :)'); };
+
+    let btn2 = document.querySelector('#btn2');
+    btn2.onclick = sayhello;
+
+    let btn3 = document.querySelector('#btn3');
+    btn3.addEventListener('click', sayhello);
+
+  </script>
+
+  <h2>간단한 폼 체크</h2>
+  <form>
+    <div>아이디 <input type="text" name="userid" id="userid"></div>
+    <div>전화번호 <input type="text" name="phone" id="phone"></div>
+    <div>나이 <input type="text" name="age" id="age"></div>
+    <p id="msg"></p>
+  </form>
+
+  <script>
+    // 변수 선언
+    const userid = document.querySelector('#userid');
+    const phone = document.querySelector('#phone');
+    const age = document.querySelector('#age');
+    const msg = document.querySelector('#msg');
+
+    // 함수 만들기
+    let checkuid = (userid) => {
+      let result = '아이디가 올바른 형식이 아닙니다.';
+      let re = /^[a-z]{5,17}/;
+      if (re.test(userid)) result = '아이디는 올바른 형식입니다.';
+      msg.textContent = result;
+    };
+
+    let checkphone = (phone) => {
+      let result = '전화번호가 올바르지 않습니다.';
+      let re = /^01[0179]-\d{3,4}-\d{4}/;
+      if (re.test(phone)) result = '전화번호가 올바른 형식입니다.';
+      msg.textContent = result;
+    }
+
+    let checkage = (age) => {
+      let result = '나이형식이 올바르지 않습니다.';
+      let re = /^([0-9]|[1-9][0-9]|[01][012][0-9])$/;
+      if (re.test(age)) result = '나이형식이 올바릅니다.';
+      msg.textContent = result;
+    }
+
+    // 이벤트 핸들러 등록
+    userid.addEventListener('blur', () => {checkuid(userid.value); });
+    phone.addEventListener('blur', () => {checkphone(phone.value); });
+    age.addEventListener('blur', () => {checkage(age.value); });
+
+  </script>
+
+  <h2>폼 입력 글자수 체크</h2>
+  <div>
+        <textarea id="intro" rows="5"
+                  cols="50"></textarea>
+    <div><span id="chrcnt"></span>/100</div>
+  </div>
+
+  <script>
+    let intro = document.querySelector('#intro');
+    let chrcnt = document.querySelector('#chrcnt');
+
+
+    intro.addEventListener('keydown', () => {
+      let chcnt = intro.value.length;
+      chrcnt.textContent = chcnt;
+    })
+
+    // intro.addEventListener('keyup', () => {
+    //   let chcnt = intro.value.length;
+    //   chrcnt.textContent = chcnt;
+    // });
+
+    document.addEventListener('dblclick', () => {
+      alert('hello');
+    })
+  </script>
+
+
 
   <p></p>
 </body>

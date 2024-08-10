@@ -10,4 +10,8 @@ async def css(req: Request):
 
 @practice_router.get('/js')
 async def js(req: Request):
-    return templates.TemplateResponse('practice/js.html', {'request': req})
+    return templates.TemplateResponse('practice/js/js.html', {'request': req})
+
+@practice_router.get('/js2')
+async def js(req: Request):
+    return templates.TemplateResponse('practice/js/js2.html', {'request': req})

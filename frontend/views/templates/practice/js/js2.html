@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>js2</title>
+    <style>
+        .warn { color: red; }
+    </style>
+</head>
+<body>
+    <h1>js2</h1>
+    <h2>form</h2>
+
+    <form name="join1">
+        <div>아이디(uid)
+            <input type="text" name="uid"></div>
+        <div id="warn1" class="warn"></div>
+
+        <div>비밀번호(pwd)
+            <input type="password" name="pwd"></div>
+
+        <div>비밀번호 확인(pwd)
+            <input type="password" name="repwd"></div>
+        <div id="warn2" class="warn"></div>
+
+        <div>이름(name)
+            <input type="text" name="name"></div>
+        <div id="warn3" class="warn"></div>
+
+        <div>성별(gender)
+            남<input type="radio" name="gender" value="m">
+            여<input type="radio" name="gender" value="f">
+        </div>
+        <div id="warn4" class="warn"></div>
+
+        <button type="button" id="joinbtn">입력완료</button>
+    </form>
+
+    <script>
+        let frm1 = document.join1;
+
+        // 안내메시지 변수
+        let warn1 = document.querySelector('#warn1');
+        let warn2 = document.querySelector('#warn2');
+        let warn3 = document.querySelector('#warn3');
+        let warn4 = document.querySelector('#warn4');
+
+        // 입력 완료 버튼
+        let joinbtn = document.querySelector('#joinbtn');
+        joinbtn.addEventListener("click", () => {
+            warn1.textContent = '';
+            warn2.textContent = '';
+            warn3.textContent = '';
+            warn4.textContent = '';
+
+            // 값이 없을 때
+            if (frm1.uid.value === '') {
+                warn1.textContent = '아이디를 입력하세요.';
+            } else if (frm1.pwd.value === '') {
+                warn2.textContent = '비밀번호를 입력하세요.';
+            } else if (frm1.repwd.value === ''){
+                warn2.textContent = '비밀번호 확인을 입력하세요.';
+            } else if (frm1.pwd.value != frm1.repwd.value) {
+                warn2.textContent = '비밀번호가 일치하지 않습니다.';
+            } else if (frm1.name.value === '') {
+                warn3.textContent = '이름을 입력하세요.';
+            } else if (frm1.gender.value === '') {
+                warn4.textContent = '성별을 입력하세요.';
+            }
+        });
+
+    </script>
+
+    <h2>form - submit</h2>
+    <form name="login">
+        <div>아이디(uid)
+            <input type="text" name="uid"></div>
+
+        <div>비밀번호(pwd)
+            <input type="password" name="pwd"></div>
+
+        <div id="warn5" class="warn"></div>
+
+        <button type="submit" id="lgnbtn">입력완료</button>
+    </form>
+
+    <script>
+        let login = document.login;
+        let warn5 = document.querySelector('#warn5');
+
+        login.addEventListener('submit', (e) => {
+            if (login.uid.value === '') {
+                warn5.textContent = '아이디를 입력하세요.';
+                e.preventDefault();  // submit 안되게 막기
+            } else if (login.pwd.value === '') {
+                warn5.textContent = '비밀번호를 입력하세요';
+                e.preventDefault();
+            }
+        });
+    </script>
+
+
+    <h2>비동기 처리</h2>
+    <h3>XMLHttpRequest</h3>
+
+    <div>
+        <p id="msg"></p>
+    </div>
+
+    <script>
+        // 비동기 요청을 위한 ajax 객체 생성
+        let req = new XMLHttpRequest();
+
+        // 콜백함수 정의
+        req.onreadystatechange = (e) => {
+            if (req.readyState === 4 && req.status === 200 ){
+                let msg = document.querySelector('#msg');
+                msg.textContent = req.responseText;
+            } else {
+              console.log(req.readyState, req.status);
+            }
+        }
+
+        // 서버에 데이터를 요청하기위해 요청방식과 대상이 있는 URL 작성
+        req.open('get', '/static/sayHello.txt', true);
+        req.send();
+    </script>
+
+    <h3>현대적인 XMLHttpRequest</h3>
+    <div>
+        <p id="msg3" style="color: green; font-weight: bold; "></p>
+    </div>
+
+    <script>
+        let msg3 = document.querySelector('#msg3');
+
+        fetch('/static/sayHello.txt')
+            .then(res => res.text())
+            .then(data => msg3.textContent = data)
+            .then(error => console.error(error));
+    </script>
+
+    <h2>zipcode</h2>
+    <h3>우편번호 검색</h3>
+    <div>
+        <select id="sido" onchange="getGugun()"></select>
+        <select id="gugun" onchange="getDong()"></select>
+        <select id="dong" onchange="getAddress()"></select>
+    </div>
+
+    <script>
+        let sidodata = ['서울특별시','경기도','인천광역시',
+            '부산광역시','제주자치도'];
+        let gugundata = [
+            ['강남구', '서초구', '종로구', '송파구'],
+            ['과천시', '광명시', '성남분당구'],
+            ['연수구'],
+            ['부산진구'],
+            ['서귀포시']
+        ];
+        let dongdata = [
+            [['논현동','대치동','삼성동'], ['반포동','방배동','양재동'],['광희동','명동','충무로'],['가락동','석촌동']],
+            [['과천동'],['광명동'],['대장동']],
+            [['연수동']],
+            [['개금동','가야동']],
+            [['강정동']]
+        ];
+
+        let sido = document.querySelector('#sido');
+        let gugun = document.querySelector('#gugun');
+        let dong = document.querySelector('#dong');
+
+        let getSido = () => {
+
+            let opt = document.createElement('option');
+            let txt = document.createTextNode('광역시');
+            opt.appendChild(txt);
+            sido.appendChild(opt);
+
+            //  광역시 목록
+            for (let val of sidodata) {
+                opt = document.createElement('option');
+                txt = document.createTextNode(val);
+                opt.appendChild(txt);
+                sido.appendChild(opt);
+            }
+        };
+
+        let getGugun = () => {
+
+            // 기존 시군구 항목 제거
+            while (gugun.firstChild) {
+                gugun.removeChild(gugun.firstChild);
+            };
+
+            let opt = document.createElement('option');
+            let txt = document.createTextNode('시군구');
+            opt.appendChild(txt);
+            gugun.appendChild(opt);
+
+            // 시군구 목록
+            if (sido.selectedIndex > 0) {
+                for (let val of gugundata[sido.selectedIndex - 1]) {
+                    opt = document.createElement('option');
+                    txt = document.createTextNode(val);
+                    opt.appendChild(txt);
+                    gugun.appendChild(opt);
+                }
+            }
+        };
+
+        let getDong = () => {
+            // 기존 읍면동 삭제
+            while (dong.firstChild) {
+                dong.removeChild(dong.firstChild);
+            };
+
+            let opt = document.createElement('option');
+            let txt = document.createTextNode('읍면동');
+            opt.appendChild(txt);
+            dong.appendChild(opt);
+
+            for ( let val of dongdata[sido.selectedIndex -1][gugun.selectedIndex -1]){
+                opt = document.createElement('option');
+                txt = document.createTextNode(val);
+                opt.appendChild(txt);
+                dong.appendChild(opt);
+            }
+        }
+
+        getSido();
+        getGugun();
+        getDong();
+
+    </script>
+
+
+    <p></p>
+</body>
+</html>
