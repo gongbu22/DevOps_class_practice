@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>우편번호 검색 ajax</title>
+</head>
+<body>
+    <h1>우편번호 검색 ajax</h1>
+    <div>
+        <select id="sido" onchange="getGugun()"></select>
+        <select id="gugun" onchange="getDong()"></select>
+        <select id="dong" onchange="getAddress()"></select>
+        <p id="myaddr"></p>
+    </div>
+
+    <script>
+        let sido = document.querySelector('#sido');
+        let gugun = document.querySelector('#gugun');
+        let dong = document.querySelector('#dong');
+
+        let zipTitle = (title, node) => {
+            let opt = document.createElement('option');
+            let txt = document.createTextNode(title);
+            opt.appendChild(txt);
+            node.appendChild(opt);
+        };
+
+        let getSido = () => {
+            zipTitle('- 광역시 -', sido);
+            zipTitle('- 시/군/구 -', gugun);
+            zipTitle('- 읍/면/동 -', dong);
+
+            fetch('')
+
+        }
+    </script>
+</body>
+</html>
