@@ -19,3 +19,6 @@ async def js(req: Request):
 @practice_router.get('/ajax')
 async def ajax(req: Request):
     return templates.TemplateResponse('practice/js/ajax.html', {'request': req})
+
+
+
